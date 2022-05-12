@@ -24,6 +24,7 @@
         <OutputClaim ClaimTypeReferenceId="email" DefaultValue="" />
         <OutputClaim ClaimTypeReferenceId="identityProvider" DefaultValue="" />
         <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="objectId"/>
+        <OutputClaim ClaimTypeReferenceId="uid" />
       </OutputClaims>
       <SubjectNamingInfo ClaimType="objectId" ExcludeAsClaim="true"/>
     </TechnicalProfile>

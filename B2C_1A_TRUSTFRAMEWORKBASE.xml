@@ -281,8 +281,25 @@
         <DataType>string</DataType>
         <AdminHelpText>Stores the access token of the identity provider.</AdminHelpText>
       </ClaimType>
+      <ClaimType Id="uid">
+        <DisplayName>Identity Provider Access Token</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Stores the access token of the identity provider.</AdminHelpText>
+      </ClaimType>
     </ClaimsSchema>
     <ClaimsTransformations>
+      <ClaimsTransformation Id="CreateUidFromEmail" TransformationMethod="StringReplace">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="email" TransformationClaimType="inputClaim" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="oldValue" DataType="string" Value="@" />
+          <InputParameter Id="newValue" DataType="string" Value="." />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="uid" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
       <ClaimsTransformation Id="CreateOtherMailsFromEmail" TransformationMethod="AddItemToStringCollection">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="email" TransformationClaimType="item" />
@@ -488,6 +505,7 @@
             <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
             <OutputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
             <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId" />
+            <OutputClaimsTransformation ReferenceId="CreateUidFromEmail" />
             <!-- <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" /> -->
           </OutputClaimsTransformations>
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
