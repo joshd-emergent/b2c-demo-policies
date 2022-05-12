@@ -1,6 +1,6 @@
 <TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="joshdemergentb2c.onmicrosoft.com" PolicyId="B2C_1A_Smart_HRD_SIGNIN_SAML" PublicPolicyUri="http://joshdemergentb2c.onmicrosoft.com/B2C_1A_Smart_HRD_SIGNIN_SAML" TenantObjectId="e5abfec0-e077-4d73-91c4-8aa180b43358">
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="joshdemergentb2c.onmicrosoft.com" PolicyId="B2C_1A_Smart_HRD_SIGNIN_SAML" PublicPolicyUri="http://joshdemergentb2c.onmicrosoft.com/B2C_1A_Smart_HRD_SIGNIN_SAML" TenantObjectId="e5abfec0-e077-4d73-91c4-8aa180b43358" DeploymentMode="Development" UserJourneyRecorderEndpoint="urn:journeyrecorder:applicationinsights">
   <BasePolicy>
     <TenantId>joshdemergentb2c.onmicrosoft.com</TenantId>
     <PolicyId>B2C_1A_TrustFrameworkExtensions</PolicyId>
@@ -60,8 +60,6 @@
           <InputClaim ClaimTypeReferenceId="domainParameter" TransformationClaimType="inputParameterId" />
         </InputClaims>
         <InputParameters>
-          <InputParameter Id="jsuri.com" DataType="string" Value="true" />
-          <InputParameter Id="outlook.com" DataType="string" Value="true" />
           <InputParameter Id="emergentsoftware.net" DataType="string" Value="true" />
           <InputParameter Id="emergentsoftware.io" DataType="string" Value="true" />
           <InputParameter Id="example.com" DataType="string" Value="true" />
@@ -170,62 +168,10 @@
     </ClaimsProvider>
 
     <ClaimsProvider>
-      <DisplayName>Login with AAD OIDC</DisplayName>
-      <TechnicalProfiles>
-        <TechnicalProfile Id="AAD-OIDC">
-          <DisplayName>Login with AAD (OIDC)</DisplayName>
-          <Description>Login with AAD (OIDC)</Description>
-          <Protocol Name="OpenIdConnect" />
-          <OutputTokenFormat>JWT</OutputTokenFormat>
-          <Metadata>
-            <Item Key="METADATA">https://login.windows.net/jasjeetaad.onmicrosoft.com/.well-known/openid-configuration</Item>
-            <Item Key="ProviderName">https://sts.windows.net/06a05be1-33df-4feb-9009-95c7a27a7a49/</Item>
-            <Item Key="client_id">a963bb4d-6216-4904-b07d-251bfbfe19c8</Item>
-            <Item Key="IdTokenAudience">a963bb4d-6216-4904-b07d-251bfbfe19c8</Item>
-            <Item Key="UsePolicyInRedirectUri">false</Item>
-            <Item Key="resource">https://graph.windows.net</Item>
-            <Item Key="response_types">code id_token</Item>
-            <Item Key="scope">openid</Item>
-            <Item Key="response_mode">form_post</Item>
-            <Item Key="HttpBinding">POST</Item>
-            <Item Key="ClaimTypeOnWhichToEnable">identityProviders</Item>
-            <Item Key="ClaimValueOnWhichToEnable">jsuri.com</Item>
-          </Metadata>
-          <CryptographicKeys>
-            <Key Id="client_secret" StorageReferenceId="B2C_1A_aadSecretFederation" />
-          </CryptographicKeys>
-          <InputClaims>
-            <!--Demo: pass the login_hint to Azure AD home realm discovery page-->
-            <InputClaim ClaimTypeReferenceId="signInName" PartnerClaimType="login_hint" />
-          </InputClaims>
-          <OutputClaims>
-            <OutputClaim ClaimTypeReferenceId="issuerUserId" PartnerClaimType="oid" />
-            <OutputClaim ClaimTypeReferenceId="tenantId" PartnerClaimType="tid" />
-            <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="given_name" />
-            <OutputClaim ClaimTypeReferenceId="surName" PartnerClaimType="family_name" />
-            <OutputClaim ClaimTypeReferenceId="displayName" PartnerClaimType="name" />
-            <OutputClaim ClaimTypeReferenceId="authenticationSource" DefaultValue="socialIdpAuthentication" AlwaysUseDefaultValue="true" />
-            <OutputClaim ClaimTypeReferenceId="identityProvider" DefaultValue="AADOIDCIDP" AlwaysUseDefaultValue="true" />
-            <OutputClaim ClaimTypeReferenceId="email" />
-          </OutputClaims>
-          <OutputClaimsTransformations>
-            <OutputClaimsTransformation ReferenceId="CreateUidFromEmail" />
-            <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
-            <OutputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
-            <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId" />
-            <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
-          </OutputClaimsTransformations>
-          <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
-          <EnabledForUserJourneys>OnItemExistenceInStringCollectionClaim</EnabledForUserJourneys>
-        </TechnicalProfile>
-      </TechnicalProfiles>
-    </ClaimsProvider>
-
-    <ClaimsProvider>
       <Domain>live.com</Domain>
       <DisplayName>Microsoft Account</DisplayName>
       <TechnicalProfiles>
-        <TechnicalProfile Id="MSA-OIDC">
+        <TechnicalProfile Id="ExternalProvider-MSA-OIDC">
           <DisplayName>Microsoft Account</DisplayName>
           <Protocol Name="OpenIdConnect" />
           <Metadata>
@@ -307,22 +253,29 @@
       <Domain>okta.com</Domain>
       <DisplayName>Login with OKTA</DisplayName>
       <TechnicalProfiles>
-        <TechnicalProfile Id="OKTA-OpenIdConnect">
+        <TechnicalProfile Id="ExternalProvider-OKTA-OIDC">
           <DisplayName>OKTA</DisplayName>
           <Description>Login with your OKTA account</Description>
           <Protocol Name="OpenIdConnect" />
           <Metadata>
             <Item Key="METADATA">https://dev-456048-admin.okta.com/oauth2/default/.well-known/openid-configuration</Item>
+            <!-- <Item Key="ProviderName">https://dev-456048-admin.okta.com</Item> -->
             <Item Key="client_id">0oa67ochknuow1ce94x7</Item>
             <Item Key="response_types">code</Item>
             <Item Key="scope">openid profile email</Item>
             <Item Key="response_mode">query</Item>
             <Item Key="HttpBinding">POST</Item>
             <Item Key="UsePolicyInRedirectUri">false</Item>
+            <Item Key="ClaimTypeOnWhichToEnable">identityProviders</Item>
+            <Item Key="ClaimValueOnWhichToEnable">emergentsoftware.io</Item>
           </Metadata>
           <CryptographicKeys>
             <Key Id="client_secret" StorageReferenceId="B2C_1A_OktaDevClientSecret" />
           </CryptographicKeys>
+          <InputClaims>
+            <!--Demo: pass the login_hint to Azure AD home realm discovery page-->
+            <InputClaim ClaimTypeReferenceId="signInName" PartnerClaimType="login_hint" />
+          </InputClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="issuerUserId" PartnerClaimType="sub" />
             <OutputClaim ClaimTypeReferenceId="tenantId" PartnerClaimType="tid" />
@@ -342,6 +295,60 @@
             <!-- <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" /> -->
           </OutputClaimsTransformations>
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
+          <EnabledForUserJourneys>OnItemExistenceInStringCollectionClaim</EnabledForUserJourneys>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Login with AAD OIDC</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="ExternalProvider-AAD-OIDC">
+          <DisplayName>Login with AAD (OIDC)</DisplayName>
+          <Description>Login with AAD (OIDC)</Description>
+          <Protocol Name="OpenIdConnect" />
+          <OutputTokenFormat>JWT</OutputTokenFormat>
+          <Metadata>
+            <Item Key="METADATA">https://login.windows.net/emergentsoftware.onmicrosoft.com/.well-known/openid-configuration</Item>
+            <!-- <Item Key="ProviderName">https://sts.windows.net/25ee13ae-a8a5-4bc2-bb23-aea90536fb0c/</Item> -->
+            <Item Key="client_id">9108740d-284b-4c62-8411-276858ba42bf</Item>
+            <Item Key="IdTokenAudience">9108740d-284b-4c62-8411-276858ba42bf</Item>
+            <Item Key="UsePolicyInRedirectUri">false</Item>
+            <Item Key="resource">https://graph.windows.net</Item>
+            <Item Key="response_types">code</Item>
+            <Item Key="scope">openid profile email</Item>
+            <Item Key="response_mode">form_post</Item>
+            <Item Key="HttpBinding">POST</Item>
+            <Item Key="ClaimTypeOnWhichToEnable">identityProviders</Item>
+            <Item Key="ClaimValueOnWhichToEnable">emergentsoftware.net</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="client_secret" StorageReferenceId="B2C_1A_EmergentAADSecret" />
+          </CryptographicKeys>
+          <InputClaims>
+            <!--Demo: pass the login_hint to Azure AD home realm discovery page-->
+            <InputClaim ClaimTypeReferenceId="signInName" PartnerClaimType="login_hint" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="issuerUserId" PartnerClaimType="oid" />
+            <OutputClaim ClaimTypeReferenceId="tenantId" PartnerClaimType="tid" />
+            <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="given_name" />
+            <OutputClaim ClaimTypeReferenceId="surName" PartnerClaimType="family_name" />
+            <OutputClaim ClaimTypeReferenceId="displayName" PartnerClaimType="name" />
+            <OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="email" />
+
+            <OutputClaim ClaimTypeReferenceId="authenticationSource" DefaultValue="socialIdpAuthentication" AlwaysUseDefaultValue="true" />
+            <OutputClaim ClaimTypeReferenceId="identityProvider" DefaultValue="AADOIDCIDP" AlwaysUseDefaultValue="true" />
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="CreateUidFromEmail" />
+            <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
+            <OutputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
+            <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId" />
+            <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
+          </OutputClaimsTransformations>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
+          <EnabledForUserJourneys>OnItemExistenceInStringCollectionClaim</EnabledForUserJourneys>
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
@@ -404,6 +411,7 @@
             </Precondition>
           </Preconditions>
           <ClaimsProviderSelections>
+            <ClaimsProviderSelection TargetClaimsExchangeId="OKTAOIDC" />
             <ClaimsProviderSelection TargetClaimsExchangeId="AADOIDC" />
             <ClaimsProviderSelection TargetClaimsExchangeId="MSAOIDC" />
           </ClaimsProviderSelections>
@@ -421,8 +429,9 @@
             </Precondition>
           </Preconditions>
           <ClaimsExchanges>
-            <ClaimsExchange Id="AADOIDC" TechnicalProfileReferenceId="AAD-OIDC" />
-            <ClaimsExchange Id="MSAOIDC" TechnicalProfileReferenceId="MSA-OIDC" />
+            <ClaimsExchange Id="OKTAOIDC" TechnicalProfileReferenceId="ExternalProvider-OKTA-OIDC" />
+            <ClaimsExchange Id="AADOIDC" TechnicalProfileReferenceId="ExternalProvider-AAD-OIDC" />
+            <ClaimsExchange Id="MSAOIDC" TechnicalProfileReferenceId="ExternalProvider-MSA-OIDC" />
           </ClaimsExchanges>
         </OrchestrationStep>
         <!-- For social IDP authentication, attempt to find the user account in the directory. -->
@@ -469,8 +478,13 @@
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
   </UserJourneys>
+
   <RelyingParty>
     <DefaultUserJourney ReferenceId="SignIn" />
+    <UserJourneyBehaviors>
+      <JourneyInsights TelemetryEngine="ApplicationInsights" InstrumentationKey="7f9c543c-50c2-4497-8e10-eb7697e87f2d" DeveloperMode="true" ClientEnabled="true" ServerEnabled="true" TelemetryVersion="1.0.0" />
+      <ScriptExecution>Allow</ScriptExecution>
+    </UserJourneyBehaviors>
     <TechnicalProfile Id="PolicyProfile">
       <DisplayName>PolicyProfile</DisplayName>
       <Protocol Name="SAML2" />
