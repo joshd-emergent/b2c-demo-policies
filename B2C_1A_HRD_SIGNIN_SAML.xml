@@ -44,6 +44,11 @@
         <DataType>string</DataType>
         <AdminHelpText>Stores the access token of the identity provider.</AdminHelpText>
       </ClaimType>
+      <ClaimType Id="isForgotPassword">
+        <DisplayName>isForgotPassword</DisplayName>
+        <DataType>boolean</DataType>
+        <AdminHelpText>Whether the user has selected Forgot your Password</AdminHelpText>
+      </ClaimType>
     </ClaimsSchema>
     <ClaimsTransformations>
       <ClaimsTransformation Id="ParseDomain" TransformationMethod="ParseDomain">
@@ -84,7 +89,7 @@
         </OutputClaims>
       </ClaimsTransformation>
 
-      <ClaimsTransformation Id="CreateidentityProvidersCollection" TransformationMethod="AddItemToStringCollection">
+      <ClaimsTransformation Id="CreateIdentityProvidersCollection" TransformationMethod="AddItemToStringCollection">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="domainParameter" TransformationClaimType="item" />
           <InputClaim ClaimTypeReferenceId="identityProviders" TransformationClaimType="collection" />
@@ -107,6 +112,20 @@
         </OutputClaims>
       </ClaimsTransformation>
     </ClaimsTransformations>
+    <!-- <ContentDefinitions>
+      <ContentDefinition Id="api.signuporsignin">
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/unified.html</LoadUri>
+    <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.2</DataUri>
+  </ContentDefinition>
+  <ContentDefinition Id="api.localaccountsignin">
+    <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+    <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+    <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+    <Metadata>
+      <Item Key="DisplayName">Collect information from user page</Item>
+    </Metadata>
+  </ContentDefinition>
+</ContentDefinitions> -->
   </BuildingBlocks>
   <ClaimsProviders>
 
@@ -140,10 +159,10 @@
     </ClaimsProvider>
 
     <ClaimsProvider>
-      <DisplayName>Parse domain parameter</DisplayName>
+      <DisplayName>Home Realm Discovery Logic</DisplayName>
       <TechnicalProfiles>
         <TechnicalProfile Id="HRDLogic">
-          <DisplayName>ParseDomainHint</DisplayName>
+          <DisplayName>HRDLogic</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
             <Item Key="IncludeClaimResolvingInClaimsHandling">true</Item>
@@ -160,7 +179,47 @@
             <OutputClaimsTransformation ReferenceId="ParseDomain" />
             <OutputClaimsTransformation ReferenceId="DomainLookup" />
             <OutputClaimsTransformation ReferenceId="CheckDomainParameterValue" />
-            <OutputClaimsTransformation ReferenceId="CreateidentityProvidersCollection" />
+            <OutputClaimsTransformation ReferenceId="CreateIdentityProvidersCollection" />
+          </OutputClaimsTransformations>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="ParseDomainHint">
+          <DisplayName>Parse Domain Hint Query Param</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="IncludeClaimResolvingInClaimsHandling">true</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="dummyTrue" DefaultValue="true" />
+            <InputClaim ClaimTypeReferenceId="domainParameter" DefaultValue="{OIDC:DomainHint}" AlwaysUseDefaultValue="true" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="identityProviders" />
+            <OutputClaim ClaimTypeReferenceId="knownDomain" />
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="DomainLookup" />
+            <OutputClaimsTransformation ReferenceId="CheckDomainParameterValue" />
+          </OutputClaimsTransformations>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="CreateIdentityProvidersCollectionLogic">
+          <DisplayName>Create Identity Providers Collection from Domain Hint</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="IncludeClaimResolvingInClaimsHandling">true</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="isKnownCustomer" />
+          </InputClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="identityProviders" />
+            <OutputClaim ClaimTypeReferenceId="knownDomain" />
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="CreateIdentityProvidersCollection" />
           </OutputClaimsTransformations>
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
         </TechnicalProfile>
@@ -242,8 +301,33 @@
         <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Email">
           <Metadata>
             <Item Key="setting.showSignupLink">false</Item>
+            <Item Key="setting.forgotPasswordLinkOverride">ForgotPasswordExchange</Item>
           </Metadata>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="signInName" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="password" Required="true" />
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="email" />
+            <OutputClaim ClaimTypeReferenceId="authenticationSource" />
+            <!-- <OutputClaim ClaimTypeReferenceId="upn" /> -->
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="CreateUidFromEmail" />
+          </OutputClaimsTransformations>
         </TechnicalProfile>
+        <TechnicalProfile Id="ForgotPassword">
+          <DisplayName>Forgot your password?</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="isForgotPassword" DefaultValue="true" AlwaysUseDefaultValue="true"/>
+          </OutputClaims>
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+        </TechnicalProfile>
+        <!-- <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Email">
+          <Metadata>
+            <Item Key="setting.forgotPasswordLinkOverride">ForgotPasswordExchange</Item>
+          </Metadata>
+        </TechnicalProfile> -->
       </TechnicalProfiles>
     </ClaimsProvider>
 
@@ -288,11 +372,11 @@
             <OutputClaim ClaimTypeReferenceId="identityProviderAccessToken" PartnerClaimType="{oauth2:access_token}" />
           </OutputClaims>
           <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="CreateUidFromEmail" />
             <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
             <OutputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
             <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId" />
-            <OutputClaimsTransformation ReferenceId="CreateUidFromEmail" />
-            <!-- <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" /> -->
+            <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
           </OutputClaimsTransformations>
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-SocialLogin" />
           <EnabledForUserJourneys>OnItemExistenceInStringCollectionClaim</EnabledForUserJourneys>
@@ -312,9 +396,9 @@
             <Item Key="METADATA">https://login.windows.net/emergentsoftware.onmicrosoft.com/.well-known/openid-configuration</Item>
             <!-- <Item Key="ProviderName">https://sts.windows.net/25ee13ae-a8a5-4bc2-bb23-aea90536fb0c/</Item> -->
             <Item Key="client_id">9108740d-284b-4c62-8411-276858ba42bf</Item>
-            <Item Key="IdTokenAudience">9108740d-284b-4c62-8411-276858ba42bf</Item>
+            <!-- <Item Key="IdTokenAudience">9108740d-284b-4c62-8411-276858ba42bf</Item> -->
             <Item Key="UsePolicyInRedirectUri">false</Item>
-            <Item Key="resource">https://graph.windows.net</Item>
+            <!-- <Item Key="resource">https://graph.windows.net</Item> -->
             <Item Key="response_types">code</Item>
             <Item Key="scope">openid profile email</Item>
             <Item Key="response_mode">form_post</Item>
@@ -359,16 +443,53 @@
       <OrchestrationSteps>
         <OrchestrationStep Order="1" Type="ClaimsExchange">
           <ClaimsExchanges>
+            <ClaimsExchange Id="ParseDomainHintLogic" TechnicalProfileReferenceId="ParseDomainHint" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- If the domain_hint was presented and matched one in the list then add Identity Provider to collection-->
+        <!-- https://github.com/AlbozDroid/b2c-hrd-domainhint-sample/blob/main/Alboz_susi_public.xml -->
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+              <Value>isKnownCustomer</Value>
+              <Value>False</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
+            <ClaimsExchange Id="IsKnownCustomerLogic" TechnicalProfileReferenceId="CreateIdentityProvidersCollectionLogic" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="3" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+              <Value>isKnownCustomer</Value>
+              <Value>True</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <ClaimsExchanges>
             <ClaimsExchange Id="SigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-Signin-Email" />
           </ClaimsExchanges>
         </OrchestrationStep>
-        <OrchestrationStep Order="2" Type="ClaimsExchange">
+
+        <OrchestrationStep Order="4" Type="ClaimsExchange">
+          <Preconditions>
+            <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
+              <Value>isKnownCustomer</Value>
+              <Value>True</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
           <ClaimsExchanges>
-            <ClaimsExchange Id="ParseDomainHintLogic" TechnicalProfileReferenceId="HRDLogic" />
+            <ClaimsExchange Id="HRDLogic" TechnicalProfileReferenceId="HRDLogic" />
           </ClaimsExchanges>
         </OrchestrationStep>
+
         <!-- If the domain_hint did not match any known domain, then redirect to a default local account sign in-->
-        <OrchestrationStep Order="3" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
+        <OrchestrationStep Order="5" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
           <Preconditions>
             <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
               <Value>isKnownCustomer</Value>
@@ -383,8 +504,10 @@
             <ClaimsExchange Id="LocalAccountSigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
           </ClaimsExchanges>
         </OrchestrationStep>
+
         <!-- dont run this step if the domain was known, or we have an objectid (local account sign in)-->
-        <OrchestrationStep Order="4" Type="ClaimsExchange">
+        <!-- TODO Remove this -->
+        <OrchestrationStep Order="6" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
               <Value>objectId</Value>
@@ -400,9 +523,22 @@
             <ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
           </ClaimsExchanges>
         </OrchestrationStep>
+
+        <OrchestrationStep Order="7" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>DisableisForgotPassword</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="PasswordReset" />
+          </JourneyList>
+        </OrchestrationStep>
+
         <!-- If the domain matched any known domain, then this step will have a single IdP
                     enabled due to each known IdP TP having an enablement flag via identityProviders claim -->
-        <OrchestrationStep Order="5" Type="ClaimsProviderSelection" ContentDefinitionReferenceId="api.idpselections">
+        <OrchestrationStep Order="8" Type="ClaimsProviderSelection" ContentDefinitionReferenceId="api.idpselections">
           <Preconditions>
             <Precondition Type="ClaimEquals" ExecuteActionsIf="false">
               <Value>isKnownCustomer</Value>
@@ -416,7 +552,7 @@
             <ClaimsProviderSelection TargetClaimsExchangeId="MSAOIDC" />
           </ClaimsProviderSelections>
         </OrchestrationStep>
-        <OrchestrationStep Order="6" Type="ClaimsExchange">
+        <OrchestrationStep Order="9" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
               <Value>objectId</Value>
@@ -435,7 +571,7 @@
           </ClaimsExchanges>
         </OrchestrationStep>
         <!-- For social IDP authentication, attempt to find the user account in the directory. -->
-        <OrchestrationStep Order="7" Type="ClaimsExchange">
+        <OrchestrationStep Order="10" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimEquals" ExecuteActionsIf="false">
               <Value>isKnownCustomer</Value>
@@ -448,7 +584,7 @@
           </ClaimsExchanges>
         </OrchestrationStep>
         <!-- Still dont have objectId (social idp user that doesnt yet exist) - write the account -->
-        <OrchestrationStep Order="8" Type="ClaimsExchange">
+        <OrchestrationStep Order="11" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
               <Value>objectId</Value>
@@ -460,7 +596,7 @@
           </ClaimsExchanges>
         </OrchestrationStep>
 
-        <OrchestrationStep Order="9" Type="ClaimsExchange">
+        <OrchestrationStep Order="12" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
               <Value>isKnownCustomer</Value>
@@ -473,11 +609,32 @@
           </ClaimsExchanges>
         </OrchestrationStep>
 
-        <OrchestrationStep Order="10" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="Saml2AssertionIssuer" />
+        <OrchestrationStep Order="13" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="Saml2AssertionIssuer" />
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
   </UserJourneys>
+
+
+  <SubJourneys>
+    <SubJourney Id="PasswordReset" Type="Call">
+      <OrchestrationSteps>
+        <!-- Validate user's email address. -->
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PasswordResetUsingEmailAddressExchange" TechnicalProfileReferenceId="LocalAccountDiscoveryUsingEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- Collect and persist a new password. -->
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="NewCredentials" TechnicalProfileReferenceId="LocalAccountWritePasswordUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+  </SubJourneys>
 
   <RelyingParty>
     <DefaultUserJourney ReferenceId="SignIn" />
