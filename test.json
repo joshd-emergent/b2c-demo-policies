@@ -1,0 +1,1076 @@
+[
+    {
+      "Kind": "Headers",
+      "Content": {
+        "UserJourneyRecorderEndpoint": "urn:journeyrecorder:applicationinsights",
+        "CorrelationId": "ff552a87-8e2f-46d4-a50b-6ef9d6f49bb5",
+        "EventInstance": "Event:API",
+        "TenantId": "joshdemergentb2c.onmicrosoft.com",
+        "PolicyId": "B2C_1A_SIGNUP_SIGNIN_OPENID"
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "API",
+        "StateName": "Initial"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.CrossSiteRequestForgeryValidationHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "MACHSTATE": {
+            "c": "2022-06-14T14:41:49.4129861Z",
+            "k": "MACHSTATE",
+            "v": "Initial",
+            "p": true
+          },
+          "JC": {
+            "c": "2022-06-14T14:41:30.5054144Z",
+            "k": "JC",
+            "v": "en",
+            "p": true
+          },
+          "Complex-CLMS": {
+            "dummyTrue": "true",
+            "domainParameter": "Null",
+            "knownDomain": "Null",
+            "isKnownCustomer": "False",
+            "signInName": "josh@test.com"
+          },
+          "ORCH_CS": {
+            "c": "2022-06-14T14:41:49.8052401Z",
+            "k": "ORCH_CS",
+            "v": "3",
+            "p": true
+          },
+          "ORCH_IDX": {
+            "c": "2022-06-14T14:41:30.7865032Z",
+            "k": "ORCH_IDX",
+            "v": "0",
+            "p": true
+          },
+          "RA": {
+            "c": "2022-06-14T14:41:30.7865032Z",
+            "k": "RA",
+            "v": "0",
+            "p": true
+          },
+          "RPP": {
+            "c": "2022-06-14T14:41:30.5054144Z",
+            "k": "RPP",
+            "v": "OAUTH2",
+            "p": true
+          },
+          "RPIPP": {
+            "c": "2022-06-14T14:41:30.5054144Z",
+            "k": "RPIPP",
+            "v": "OAuth2ProtocolProvider",
+            "p": true
+          },
+          "OTID": {
+            "c": "2022-06-14T14:41:30.5054144Z",
+            "k": "OTID",
+            "v": "joshdemergentb2c.onmicrosoft.com",
+            "p": true
+          },
+          "APPMV": {
+            "c": "2022-06-14T14:41:30.5054144Z",
+            "k": "APPMV",
+            "v": "V2",
+            "p": true
+          },
+          "IC": {
+            "c": "2022-06-14T14:41:30.7708742Z",
+            "k": "IC",
+            "v": "True",
+            "p": true
+          },
+          "MSG(4d32375a-85e0-4dfa-a3e5-fc47f150c177)": {
+            "c": "2022-06-14T14:41:30.7708742Z",
+            "k": "MSG(4d32375a-85e0-4dfa-a3e5-fc47f150c177)",
+            "v": "{\"TenantId\":\"joshdemergentb2c.onmicrosoft.com\",\"PolicyId\":\"B2C_1A_SIGNUP_SIGNIN_OPENID\",\"RedirectUri\":\"https://app-joshd-b2c-demo.azurewebsites.net/signin-oidc\",\"AdditionalParameters\":{\"client_info\":\"1\",\"x-client-brkrver\":\"IDWeb.1.24.1.0\",\"x-client-SKU\":\"ID_NETSTANDARD2_0\",\"x-client-ver\":\"6.17.0.0\"},\"Nonce\":\"637908144902346080.ZmUyYWQxNzYtODBmZS00YjI3LWEwNDYtZDQyOTc3NzZkYjZjYzEwM2EyNjQtMWUzMC00ZmFhLThlMGYtYWYwMmE1YjU1ZmM1\",\"State\":\"CfDJ8Lvhp2nVlHVEl20xJQOxq5NDS8_IcK6GKBViS2G14tQfUO_GnheBi7dre7aIBYLfgshppy0h91D8EZseFTeF3EtLNX18497QEt7DcCNUnIoZ-Vx0dRU6ifYnERMMVOn9vXuUTC3hT7U2jPm0nxgIi34I0q4Fhu8nDdRA5-68j11UW8JSa4nFvELBLcGGSNVIXB1AJ_xa0J3aI5Kgz-_O3zX2o-nQBIchKrcQVj_-HGwbRKaY_B6ijjx68ZYvQDANciUpA-hdRq5FrGpPH8_MDpjB6h2kYDOYmV9BRTQVKzhwYCsn8xmOeA7UpV8Zz2V3Eg\",\"ClientId\":\"ad88e131-56a4-4931-b789-3f76ca5380fe\",\"ResponseType\":\"id_token\",\"ResponseMode\":\"form_post\",\"ResponseRedirector\":{\"URI\":\"https://app-joshd-b2c-demo.azurewebsites.net/signin-oidc\",\"D\":false,\"WF\":true,\"R\":false},\"Scope\":\"openid profile\",\"AppModelVersion\":1,\"ScopedProviders\":[]}",
+            "p": true,
+            "t": "OAuth2"
+          },
+          "IMESSAGE": {
+            "c": "2022-06-14T14:41:30.7708742Z",
+            "k": "IMESSAGE",
+            "v": "4d32375a-85e0-4dfa-a3e5-fc47f150c177",
+            "p": true
+          },
+          "TAGE": {
+            "c": "2022-06-14T14:41:30.7708742Z",
+            "k": "TAGE",
+            "v": "ParseDomainHintLogic",
+            "p": true
+          },
+          "EID": {
+            "c": "2022-06-14T14:41:30.7865032Z",
+            "k": "EID",
+            "v": "urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1",
+            "p": true
+          },
+          "CTP": {
+            "c": "2022-06-14T14:41:49.4129861Z",
+            "k": "CTP",
+            "v": "SelfAsserted-Signin-Email:3",
+            "p": true
+          },
+          "SE": {
+            "c": "2022-06-14T14:41:49.4129861Z",
+            "k": "SE",
+            "v": "Self-asserted_local",
+            "p": true
+          },
+          "CMESSAGE": {
+            "c": "2022-06-14T14:41:49.8052401Z",
+            "k": "CMESSAGE",
+            "v": "4d32375a-85e0-4dfa-a3e5-fc47f150c177",
+            "p": true
+          },
+          "ComplexItems": "_MachineEventQ, REPRM, TCTX"
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.JourneyRestartHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.ValidateApiResponseHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "Complex-API_RESULT": {
+            "IsCancelled": "False",
+            "IsErrored": "False",
+            "IsContinue": "True",
+            "IsAlternate": "False",
+            "csrf_token": "YWtZNVZuYU9pUEdEVzhGdDRUdm5pckVmeURJK2xHTUFJak1uV1BxOUM5VzkyYlpxWVF3VlhiTFh1VXg2ZG5EMG9uYktncnZHL3BQWS9hTDJQL2JmeUE9PTsyMDIyLTA2LTE0VDE0OjQxOjMwLjc4NjUwMzJaO01nK0pKeFA4azA4MTB6S01Yb3BKV1E9PTt7IlRhcmdldEVudGl0eSI6IlBhcnNlRG9tYWluSGludExvZ2ljIiwiT3JjaGVzdHJhdGlvblN0ZXAiOjN9",
+            "tx": "StateProperties=eyJUSUQiOiJmZjU1MmE4Ny04ZTJmLTQ2ZDQtYTUwYi02ZWY5ZDZmNDliYjUifQ",
+            "p": "B2C_1A_SIGNUP_SIGNIN_OPENID",
+            "diags": "{\"pageViewId\":\"0c08f308-2309-4032-9504-7b4ce33e9f77\",\"pageId\":\"SelfAsserted\",\"trace\":[{\"ac\":\"T005\",\"acST\":1655217690,\"acD\":5},{\"ac\":\"T021 - URL:https://joshdemergentb2c.b2clogin.com/static/tenant/templates/AzureBlue/selfAsserted.cshtml?slice=001-000&dc=CHI\",\"acST\":1655217690,\"acD\":1904},{\"ac\":\"T019\",\"acST\":1655217692,\"acD\":8},{\"ac\":\"T004\",\"acST\":1655217692,\"acD\":2},{\"ac\":\"T003\",\"acST\":1655217692,\"acD\":2},{\"ac\":\"T035\",\"acST\":1655217692,\"acD\":0},{\"ac\":\"T030Online\",\"acST\":1655217692,\"acD\":0},{\"ac\":\"T017T010\",\"acST\":1655217708,\"acD\":116},{\"ac\":\"T002\",\"acST\":1655217708,\"acD\":0},{\"ac\":\"T017T010\",\"acST\":1655217708,\"acD\":116}]}"
+          }
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.NoOpHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.SwitchFromProtocolToApiHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "SELFASSERTED/Success",
+        "StateName": "Initial"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeComplete"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "ComplexItems": "_MachineEventQ, REPRM, S_CTP, TCTX"
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.NoOpHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.SSO.SSOSessionHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.OrchestrationManager"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "ORCH_CS": {
+            "c": "2022-06-14T14:41:49.8208662Z",
+            "k": "ORCH_CS",
+            "v": "4",
+            "p": true
+          },
+          "ComplexItems": "_MachineEventQ, ORCH_IDX, REPRM, S_CTP, TCTX"
+        }
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "ClaimsExchange",
+        "StateName": "AwaitingNextStep"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.ShouldOrchestrationStepBeInvokedHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "EnabledForUserJourneysTrue",
+              "Value": {
+                "Values": [
+                  {
+                    "Key": "CurrentStep",
+                    "Value": 4
+                  },
+                  {
+                    "Key": "TechnicalProfileEnabled",
+                    "Value": {
+                      "EnabledRule": "Always",
+                      "EnabledResult": true,
+                      "TechnicalProfile": "HRDLogic"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "Statebag": {
+          "MACHSTATE": {
+            "c": "2022-06-14T14:41:49.8208662Z",
+            "k": "MACHSTATE",
+            "v": "AwaitingNextStep",
+            "p": true
+          }
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolARedirectionHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolAnApiHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.SSO.IsSSOSessionParticipantHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolAServiceCallHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "InitiatingClaimsExchange",
+              "Value": {
+                "ProtocolType": "backend protocol",
+                "TargetEntity": "ParseDomainHintLogic",
+                "TechnicalProfileId": "HRDLogic",
+                "ProtocolProviderType": "ClaimsTransformationProtocolProvider"
+              }
+            }
+          ]
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.GenerateRequestInputParamsHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": false
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.InputClaimsTransformationHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.PersistedClaimsTransformationHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.OutputClaimsTransformationHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "GettingClaims",
+              "Value": {
+                "Values": [
+                  {
+                    "Key": "InitiatingBackendClaimsExchange",
+                    "Value": {
+                      "TechnicalProfileId": "HRDLogic",
+                      "ProtocolProviderType": "ClaimsTransformationProtocolProvider"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Key": "OutputClaimsTransformation",
+              "Value": {
+                "Values": [
+                  {
+                    "Key": "ClaimsTransformation",
+                    "Value": {
+                      "Values": [
+                        {
+                          "Key": "Id",
+                          "Value": "ParseDomain"
+                        },
+                        {
+                          "Key": "InputClaim",
+                          "Value": {
+                            "PolicyClaimType": "signInName",
+                            "Value": "josh@test.com"
+                          }
+                        },
+                        {
+                          "Key": "Result",
+                          "Value": {
+                            "PolicyClaimType": "domainParameter",
+                            "Value": "test.com"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "Key": "ClaimsTransformation",
+                    "Value": {
+                      "Values": [
+                        {
+                          "Key": "Id",
+                          "Value": "DomainLookup"
+                        },
+                        {
+                          "Key": "InputClaim",
+                          "Value": {
+                            "PolicyClaimType": "domainParameter",
+                            "Value": "test.com"
+                          }
+                        },
+                        {
+                          "Key": "InputParameter",
+                          "Value": {
+                            "Id": "emergentsoftware.net",
+                            "Value": "true"
+                          }
+                        },
+                        {
+                          "Key": "InputParameter",
+                          "Value": {
+                            "Id": "emergentsoftware.io",
+                            "Value": "true"
+                          }
+                        },
+                        {
+                          "Key": "InputParameter",
+                          "Value": {
+                            "Id": "example.com",
+                            "Value": "true"
+                          }
+                        },
+                        {
+                          "Key": "InputParameter",
+                          "Value": {
+                            "Id": "errorOnFailedLookup",
+                            "Value": "False"
+                          }
+                        },
+                        {
+                          "Key": "Result",
+                          "Value": {
+                            "PolicyClaimType": "knownDomain",
+                            "Value": ""
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "Key": "ClaimsTransformation",
+                    "Value": {
+                      "Values": [
+                        {
+                          "Key": "Id",
+                          "Value": "CheckDomainParameterValue"
+                        },
+                        {
+                          "Key": "InputClaim",
+                          "Value": {
+                            "PolicyClaimType": "knownDomain",
+                            "Value": ""
+                          }
+                        },
+                        {
+                          "Key": "InputClaim",
+                          "Value": {
+                            "PolicyClaimType": "dummyTrue",
+                            "Value": "true"
+                          }
+                        },
+                        {
+                          "Key": "InputParameter",
+                          "Value": {
+                            "Id": "operator",
+                            "Value": "EQUAL"
+                          }
+                        },
+                        {
+                          "Key": "InputParameter",
+                          "Value": {
+                            "Id": "ignoreCase",
+                            "Value": "true"
+                          }
+                        },
+                        {
+                          "Key": "Result",
+                          "Value": {
+                            "PolicyClaimType": "isKnownCustomer",
+                            "Value": "False"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "Key": "ClaimsTransformation",
+                    "Value": {
+                      "Values": [
+                        {
+                          "Key": "Id",
+                          "Value": "CreateIdentityProvidersCollection"
+                        },
+                        {
+                          "Key": "InputClaim",
+                          "Value": {
+                            "PolicyClaimType": "domainParameter",
+                            "Value": "test.com"
+                          }
+                        },
+                        {
+                          "Key": "InputClaim",
+                          "Value": {
+                            "PolicyClaimType": "identityProviders",
+                            "Value": "System.Collections.Generic.HashSet`1[System.String]"
+                          }
+                        },
+                        {
+                          "Key": "Result",
+                          "Value": {
+                            "PolicyClaimType": "identityProviders",
+                            "Value": "System.Collections.Generic.HashSet`1[System.String]"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "Statebag": {
+          "Complex-CLMS": {
+            "dummyTrue": "true",
+            "domainParameter": "test.com",
+            "knownDomain": "",
+            "isKnownCustomer": "False",
+            "signInName": "josh@test.com",
+            "identityProviders": "[test.com]"
+          }
+        }
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.SSO.SSOSessionHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.OrchestrationManager"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "ORCH_CS": {
+            "c": "2022-06-14T14:41:49.8208662Z",
+            "k": "ORCH_CS",
+            "v": "5",
+            "p": true
+          }
+        }
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "CombinedSignInAndSignUp",
+        "StateName": "AwaitingNextStep"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.SSO.IsSSOSessionParticipantHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "Complex-CLMS": {
+            "dummyTrue": "true",
+            "domainParameter": "test.com",
+            "knownDomain": "",
+            "isKnownCustomer": "False",
+            "signInName": "josh@test.com",
+            "identityProviders": "[test.com]",
+            "objectIdFromSession": "True"
+          }
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.OrchestrationManager"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "ORCH_CS": {
+            "c": "2022-06-14T14:41:49.8364882Z",
+            "k": "ORCH_CS",
+            "v": "6",
+            "p": true
+          }
+        }
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "ClaimsExchange",
+        "StateName": "AwaitingNextStep"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.ShouldOrchestrationStepBeInvokedHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "EnabledForUserJourneysTrue",
+              "Value": {
+                "Values": [
+                  {
+                    "Key": "CurrentStep",
+                    "Value": 6
+                  },
+                  {
+                    "Key": "TechnicalProfileEnabled",
+                    "Value": {
+                      "EnabledRule": "Always",
+                      "EnabledResult": true,
+                      "TechnicalProfile": "No-Account-Found"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolARedirectionHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolAnApiHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "InitiatingClaimsExchange",
+              "Value": {
+                "ProtocolType": "Identity Experience Engine API",
+                "TargetEntity": "ParseDomainHintLogic",
+                "TechnicalProfileId": "No-Account-Found",
+                "ProtocolProviderType": "SelfAssertedAttributeProvider"
+              }
+            }
+          ]
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.SwitchToApiOrchestrationHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "SELFASSERTED",
+        "StateName": "AwaitingNextStep"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.SSO.IsSSOSessionParticipantHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "TAGE": {
+            "c": "2022-06-14T14:41:49.8364882Z",
+            "k": "TAGE",
+            "v": "No-Account-Found",
+            "p": true
+          }
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.OrchestrationManager"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "ORCH_CS": {
+            "c": "2022-06-14T14:41:49.8364882Z",
+            "k": "ORCH_CS",
+            "v": "10",
+            "p": true
+          }
+        }
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "ClaimsExchange",
+        "StateName": "AwaitingNextStep"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.ShouldOrchestrationStepBeInvokedHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "EnabledForUserJourneysTrue",
+              "Value": {
+                "Values": [
+                  {
+                    "Key": "CurrentStep",
+                    "Value": 10
+                  },
+                  {
+                    "Key": "TechnicalProfileEnabled",
+                    "Value": {
+                      "EnabledRule": "Always",
+                      "EnabledResult": true,
+                      "TechnicalProfile": "AAD-UserWriteUsingAlternativeSecurityId"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolARedirectionHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolAnApiHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.SSO.IsSSOSessionParticipantHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "TAGE": {
+            "c": "2022-06-14T14:41:49.8521221Z",
+            "k": "TAGE",
+            "v": "AADUserWrite",
+            "p": true
+          }
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.OrchestrationManager"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "Statebag": {
+          "ORCH_CS": {
+            "c": "2022-06-14T14:41:49.8521221Z",
+            "k": "ORCH_CS",
+            "v": "11",
+            "p": true
+          }
+        }
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "ClaimsExchange",
+        "StateName": "AwaitingNextStep"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.ShouldOrchestrationStepBeInvokedHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "EnabledForUserJourneysTrue",
+              "Value": {
+                "Values": [
+                  {
+                    "Key": "CurrentStep",
+                    "Value": 11
+                  },
+                  {
+                    "Key": "TechnicalProfileEnabled",
+                    "Value": {
+                      "EnabledRule": "Always",
+                      "EnabledResult": true,
+                      "TechnicalProfile": "AAD-UserReadUsingObjectId"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolARedirectionHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolAnApiHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.SSO.IsSSOSessionParticipantHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "PredicateResult": "False"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.IsClaimsExchangeProtocolAServiceCallHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "InitiatingClaimsExchange",
+              "Value": {
+                "ProtocolType": "backend protocol",
+                "TargetEntity": "AADUserWrite",
+                "TechnicalProfileId": "AAD-UserReadUsingObjectId",
+                "ProtocolProviderType": "AzureActiveDirectoryProvider"
+              }
+            }
+          ]
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.GenerateRequestInputParamsHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": false
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.InputClaimsTransformationHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.PersistedClaimsTransformationHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true
+      }
+    },
+    {
+      "Kind": "Action",
+      "Content": "Web.TPEngine.StateMachineHandlers.OutputClaimsTransformationHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Result": true,
+        "RecorderRecord": {
+          "Values": [
+            {
+              "Key": "InitiatingClaimsExchange",
+              "Value": {
+                "ProtocolType": "backend protocol",
+                "TargetEntity": "AADUserWrite",
+                "TechnicalProfileId": "AAD-UserReadUsingObjectId",
+                "ProtocolProviderType": "AzureActiveDirectoryProvider"
+              }
+            }
+          ]
+        },
+        "Statebag": {
+          "MACHSTATE": {
+            "c": "2022-06-14T14:41:49.8521221Z",
+            "k": "MACHSTATE",
+            "v": "Microsoft.Cpim.Common.PolicyException",
+            "p": true
+          },
+          "ComplexItems": "_MachineEventQ, ORCH_IDX, REPRM, S_CTP, TCTX, M_EXCP"
+        },
+        "PredicateResult": "True"
+      }
+    },
+    {
+      "Kind": "Transition",
+      "Content": {
+        "EventName": "Global",
+        "StateName": "Microsoft.Cpim.Common.PolicyException"
+      }
+    },
+    {
+      "Kind": "Predicate",
+      "Content": "Web.TPEngine.StateMachineHandlers.NoOpHandler"
+    },
+    {
+      "Kind": "HandlerResult",
+      "Content": {
+        "Resu
