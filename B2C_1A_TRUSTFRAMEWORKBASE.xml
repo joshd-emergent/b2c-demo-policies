@@ -401,7 +401,8 @@
       <ContentDefinition Id="api.signuporsignin">
         <LoadUri>~/tenant/templates/AzureBlue/unified.cshtml</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
-        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.5</DataUri>
+        <!-- <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.5</DataUri> -->
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.2</DataUri>
         <Metadata>
           <Item Key="DisplayName">Signin and Signup</Item>
         </Metadata>
@@ -415,7 +416,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.selfasserted">
-        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/selfAsserted.html</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
@@ -423,7 +424,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.selfasserted.profileupdate">
-        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/selfAsserted.html</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
@@ -431,7 +432,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.localaccountsignup">
-        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/selfAsserted.html</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
@@ -439,7 +440,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.localaccountpasswordreset">
-        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/selfAsserted.html</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
@@ -447,7 +448,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.socialccountsignup">
-        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/selfAsserted.html</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>
@@ -455,7 +456,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.localaccountsignin">
-        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/selfAsserted.html</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
         <Metadata>

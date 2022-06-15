@@ -8,7 +8,7 @@
   <UserJourneys>
     <UserJourney Id="SignIn">
       <OrchestrationSteps>
-        <OrchestrationStep Order="12" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+        <OrchestrationStep Order="13" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
       </OrchestrationSteps>
     </UserJourney>
   </UserJourneys>

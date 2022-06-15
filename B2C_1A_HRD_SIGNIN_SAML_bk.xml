@@ -118,7 +118,7 @@
     <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.2</DataUri>
   </ContentDefinition>
   <ContentDefinition Id="api.localaccountsignin">
-    <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+    <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/selfAsserted.html</LoadUri>
     <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
     <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
     <Metadata>
@@ -309,7 +309,6 @@
             <OutputClaim ClaimTypeReferenceId="objectId" />
             <OutputClaim ClaimTypeReferenceId="email" />
             <OutputClaim ClaimTypeReferenceId="authenticationSource" />
-            <!-- <OutputClaim ClaimTypeReferenceId="upn" /> -->
           </OutputClaims>
           <OutputClaimsTransformations>
             <OutputClaimsTransformation ReferenceId="CreateUidFromEmail" />
@@ -323,11 +322,6 @@
           </OutputClaims>
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
         </TechnicalProfile>
-        <!-- <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Email">
-          <Metadata>
-            <Item Key="setting.forgotPasswordLinkOverride">ForgotPasswordExchange</Item>
-          </Metadata>
-        </TechnicalProfile> -->
       </TechnicalProfiles>
     </ClaimsProvider>
 
@@ -499,6 +493,7 @@
           </Preconditions>
           <ClaimsProviderSelections>
             <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="ForgotPasswordExchange" />
           </ClaimsProviderSelections>
           <ClaimsExchanges>
             <ClaimsExchange Id="LocalAccountSigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
@@ -506,7 +501,6 @@
         </OrchestrationStep>
 
         <!-- dont run this step if the domain was known, or we have an objectid (local account sign in)-->
-        <!-- TODO Remove this -->
         <OrchestrationStep Order="6" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
@@ -521,13 +515,14 @@
           </Preconditions>
           <ClaimsExchanges>
             <ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
+            <ClaimsExchange Id="ForgotPasswordExchange" TechnicalProfileReferenceId="ForgotPassword" />
           </ClaimsExchanges>
         </OrchestrationStep>
 
         <OrchestrationStep Order="7" Type="InvokeSubJourney">
           <Preconditions>
             <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
-              <Value>DisableisForgotPassword</Value>
+              <Value>isForgotPassword</Value>
               <Action>SkipThisOrchestrationStep</Action>
             </Precondition>
           </Preconditions>

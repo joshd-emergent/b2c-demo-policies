@@ -17,7 +17,7 @@
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:providerselection:1.2.0</DataUri>
       </ContentDefinition>
       <ContentDefinition Id="api.signuporsignin">
-        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.1</DataUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.2</DataUri>
       </ContentDefinition>
       <ContentDefinition Id="api.selfasserted">
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>

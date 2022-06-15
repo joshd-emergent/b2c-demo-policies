@@ -128,6 +128,16 @@
         </OutputClaims>
       </ClaimsTransformation>
     </ClaimsTransformations>
+    <ContentDefinitions>
+      <ContentDefinition Id="api.signuporsignin">
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/unified.html</LoadUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.2</DataUri>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.selfasserted">
+        <LoadUri>https://stjoshdb2ctest.blob.core.windows.net/customhtml/selfAsserted.html</LoadUri>
+      </ContentDefinition>
+    </ContentDefinitions>
   </BuildingBlocks>
   <ClaimsProviders>
 
@@ -321,11 +331,28 @@
           <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
         </TechnicalProfile>
 
+        <!-- Set the isForgotPassword to true-->
+        <TechnicalProfile Id="ForgotPassword">
+          <DisplayName>Forgot your password?</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="isForgotPassword" DefaultValue="true" AlwaysUseDefaultValue="true" />
+          </OutputClaims>
+        </TechnicalProfile>
+
+        <!-- Update the sign-up or sign-in page with forgot password link target ClaimsExchange -->
         <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Email">
           <Metadata>
             <Item Key="setting.showSignupLink">false</Item>
+            <Item Key="setting.forgotPasswordLinkOverride">ForgotPasswordExchange</Item>
           </Metadata>
         </TechnicalProfile>
+
+        <!-- Adding the required session manager -->
+        <TechnicalProfile Id="LocalAccountWritePasswordUsingObjectId">
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
+
       </TechnicalProfiles>
     </ClaimsProvider>
 
@@ -498,6 +525,7 @@
           </Preconditions>
           <ClaimsProviderSelections>
             <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="ForgotPasswordExchange" />
           </ClaimsProviderSelections>
           <ClaimsExchanges>
             <ClaimsExchange Id="LocalAccountSigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
@@ -519,14 +547,27 @@
             </Precondition>
           </Preconditions>
           <ClaimsExchanges>
-            <ClaimsExchange Id="No-Account-Found" TechnicalProfileReferenceId="No-Account-Found" />
+            <!-- <ClaimsExchange Id="No-Account-Found" TechnicalProfileReferenceId="No-Account-Found" /> -->
+            <ClaimsExchange Id="ForgotPasswordExchange" TechnicalProfileReferenceId="ForgotPassword" />
           </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <OrchestrationStep Order="7" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isForgotPassword</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="PasswordReset" />
+          </JourneyList>
         </OrchestrationStep>
 
 
         <!-- If the domain matched any known domain, then this step will have a single IdP
                     enabled due to each known IdP TP having an enablement flag via identityProviders claim -->
-        <OrchestrationStep Order="7" Type="ClaimsProviderSelection" ContentDefinitionReferenceId="api.idpselections">
+        <OrchestrationStep Order="8" Type="ClaimsProviderSelection" ContentDefinitionReferenceId="api.idpselections">
           <Preconditions>
             <Precondition Type="ClaimEquals" ExecuteActionsIf="false">
               <Value>isKnownCustomer</Value>
@@ -541,7 +582,7 @@
           </ClaimsProviderSelections>
         </OrchestrationStep>
 
-        <OrchestrationStep Order="8" Type="ClaimsExchange">
+        <OrchestrationStep Order="9" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
               <Value>objectId</Value>
@@ -560,8 +601,8 @@
           </ClaimsExchanges>
         </OrchestrationStep>
 
-        <!-- For social IDP authentication, attempt to find the user account in the directory. -->
-        <OrchestrationStep Order="9" Type="ClaimsExchange">
+        <!-- For IDP authentication, attempt to find the user account in the directory. -->
+        <OrchestrationStep Order="10" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimEquals" ExecuteActionsIf="false">
               <Value>isKnownCustomer</Value>
@@ -574,8 +615,8 @@
           </ClaimsExchanges>
         </OrchestrationStep>
 
-        <!-- Still dont have objectId (social idp user that doesnt yet exist) - write the account -->
-        <OrchestrationStep Order="10" Type="ClaimsExchange">
+        <!-- Still dont have objectId (idp user that doesnt yet exist) - write the account -->
+        <OrchestrationStep Order="11" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
               <Value>objectId</Value>
@@ -587,7 +628,7 @@
           </ClaimsExchanges>
         </OrchestrationStep>
 
-        <OrchestrationStep Order="11" Type="ClaimsExchange">
+        <OrchestrationStep Order="12" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimEquals" ExecuteActionsIf="true">
               <Value>isKnownCustomer</Value>
@@ -600,11 +641,31 @@
           </ClaimsExchanges>
         </OrchestrationStep>
 
-        <OrchestrationStep Order="12" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="Saml2AssertionIssuer" />
+        <OrchestrationStep Order="13" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="Saml2AssertionIssuer" />
       </OrchestrationSteps>
       <ClientDefinition ReferenceId="DefaultWeb" />
     </UserJourney>
   </UserJourneys>
+
+  <SubJourneys>
+    <SubJourney Id="PasswordReset" Type="Call">
+      <OrchestrationSteps>
+        <!-- Validate user's email address. -->
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PasswordResetUsingEmailAddressExchange" TechnicalProfileReferenceId="LocalAccountDiscoveryUsingEmailAddress" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+
+        <!-- Collect and persist a new password. -->
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="NewCredentials" TechnicalProfileReferenceId="LocalAccountWritePasswordUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+  </SubJourneys>
 
   <RelyingParty>
     <DefaultUserJourney ReferenceId="SignIn" />
